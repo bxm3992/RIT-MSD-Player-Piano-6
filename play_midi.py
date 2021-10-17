@@ -44,7 +44,8 @@ import digitalio
 import adafruit_tlc5947
 import RPi.GPIO as GPIO
 
-
+print (board)
+dir(board)
 
 # Key Offset refers to the note difference between MIDI Start(C0) and Piano Start(A0)
 KEY_OFFSET = 9
@@ -173,8 +174,7 @@ def playMidi(song_path, bpm=0):
     VOLUME = 4
     MIN = 800
 
-    print(board)
-    dir(board)
+   
     SCK = board.SCK
     MOSI = board.MOSI
     LATCH = digitalio.DigitalInOut(board.D5)
@@ -355,7 +355,7 @@ def main():
             tempo = 0
             if numArg >= 4:
                 tempo = int(sys.argv[3])
-            #reset_key()  # Redundant key reset
+            reset_key()  # Redundant key reset
             playMidi(songname, tempo)
     else:
         sys.exit("Please insert command as argument. reset, play songname opt:tempo, tempo")
