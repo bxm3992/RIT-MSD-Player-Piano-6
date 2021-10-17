@@ -44,7 +44,7 @@ import digitalio
 import adafruit_tlc5947
 import RPi.GPIO as GPIO
 
-print(str(dir(board)))
+#print(str(dir(board)))
 
 # Key Offset refers to the note difference between MIDI Start(C0) and Piano Start(A0)
 KEY_OFFSET = 9
