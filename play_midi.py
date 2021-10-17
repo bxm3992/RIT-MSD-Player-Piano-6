@@ -173,7 +173,7 @@ def playMidi(song_path, bpm=0):
     VOLUME = 4
     MIN = 800
 
-    dir(board)
+    print(dir(board))
     SCK = board.SCK
     MOSI = board.MOSI
     LATCH = digitalio.DigitalInOut(board.D5)
