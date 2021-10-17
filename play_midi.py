@@ -173,7 +173,8 @@ def playMidi(song_path, bpm=0):
     VOLUME = 4
     MIN = 800
 
-    print(dir(board))
+    print(board)
+    dir(board)
     SCK = board.SCK
     MOSI = board.MOSI
     LATCH = digitalio.DigitalInOut(board.D5)
@@ -354,7 +355,7 @@ def main():
             tempo = 0
             if numArg >= 4:
                 tempo = int(sys.argv[3])
-            reset_key()  # Redundant key reset
+            #reset_key()  # Redundant key reset
             playMidi(songname, tempo)
     else:
         sys.exit("Please insert command as argument. reset, play songname opt:tempo, tempo")
