@@ -224,7 +224,7 @@ def playMidi(song_path, bpm=0):
     #          \  C:  v      |       000     000    000     127  
     #           \ B:         |       000     127    127     000
     #            \A:         |       000]    000]   000]    000]  ... ]
-    
+    print("Parsing MIDI file....")
     for msg in mid:
         # places velocity values in notesArray based on when notes occur simultaneously, and keeps track of delay between events. 
         if msg.type is 'note_on' or msg.type is 'note_off':
@@ -278,6 +278,7 @@ def playMidi(song_path, bpm=0):
     if notesMinDict is None:
         sys.exit("Failed to read/generate calibration file. Please check file generation and reading functions.")
 
+    print(Playing....)
     startTime = time.time()
     # tlc5947.write()
     # COUNT-IN WAIT IS PERFORMED HERE - DONE TEMPORARILY VIA FILE POLLING
@@ -324,7 +325,7 @@ def playMidi(song_path, bpm=0):
         tlc5947.write()
         
         time.sleep(mido.tick2second(line[88], mid.ticks_per_beat, tempo) * 0.7)
-        
+    print("Finished playing....")     
     reset_key()
     
 
