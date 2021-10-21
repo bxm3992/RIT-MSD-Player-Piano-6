@@ -278,7 +278,7 @@ def playMidi(song_path, bpm=0):
     if notesMinDict is None:
         sys.exit("Failed to read/generate calibration file. Please check file generation and reading functions.")
 
-    print(Playing....)
+    print('Playing....')
     startTime = time.time()
     # tlc5947.write()
     # COUNT-IN WAIT IS PERFORMED HERE - DONE TEMPORARILY VIA FILE POLLING
