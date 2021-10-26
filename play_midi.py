@@ -281,19 +281,12 @@ def playMidi(song_path, bpm=0):
 
     print('Playing....')
     startTime = time.time()
-    # tlc5947.write()
+    tlc5947.write()
     # COUNT-IN WAIT IS PERFORMED HERE - DONE TEMPORARILY VIA FILE POLLING
     # TODO: Replace by Django Webframework
-    while 1:
-        if os.path.exists('./p'):
-            os.remove('./p')
-            break
-        elif os.path.exists('./x'):
-            os.remove('./x')
-            sys.exit()
-        elif (time.time()-startTime) == 1800:
-            sys.exit()  # After 30 minutes, timeout
-    print("Writing to solenoids")
+
+    time.sleep(3)
+
     for z in range(0, len(notesArray)-1, 1):
         line = notesArray[z]
 
