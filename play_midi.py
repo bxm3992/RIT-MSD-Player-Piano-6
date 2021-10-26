@@ -301,7 +301,7 @@ def playMidi(song_path, bpm=0):
         tlc5947.write()
         # time.sleep(tickLength)
 
-        print(mido.tick2second(line[88], mid.ticks_per_beat, tempo))
+        #print(mido.tick2second(line[88], mid.ticks_per_beat, tempo))
         time.sleep(mido.tick2second(line[88], mid.ticks_per_beat, tempo) * 0.3)
         
         if notesArray[z][89] == 0 and notesArray[z+1][89] == 1:  # if sustain being activated next, start it 1 note early -- SUSTAIN ENGAGED
