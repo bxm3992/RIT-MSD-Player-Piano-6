@@ -170,7 +170,7 @@ def playMidi(song_path, bpm=0):
     length = 0
     notesArray = [[]]
     tickLength = 0
-    VOLUME = 16
+    VOLUME = 64
     MIN = 800
 
    
