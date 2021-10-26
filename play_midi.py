@@ -180,6 +180,12 @@ def playMidi(song_path, bpm=0):
     
     HBRIDGE_A = digitalio.DigitalInOut(board.D6) # may need to be a different IO port
     HBRIDGE_B = digitalio.DigitalInOut(board.D7) # may need to be a different IO port
+    PWMPIN = 12                                
+    GPIO.setwarnings(False)                             #disable warnings
+    GPIO.setmode(GPIO.BOARD)                            #set pin numbering system
+    GPIO.setup(PWMPIN,GPIO.OUT)
+    pi_pwm = GPIO.PWM(ledpin,10000)                     #create PWM instance with frequency
+    pi_pwm.start(0)
 
     # Initialize SPI bus.
     spi = busio.SPI(clock=SCK, MOSI=MOSI)
