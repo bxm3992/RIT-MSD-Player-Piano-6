@@ -293,7 +293,7 @@ def playMidi(song_path, bpm=0):
             sys.exit()
         elif (time.time()-startTime) == 1800:
             sys.exit()  # After 30 minutes, timeout
-
+    print("Writing to solenoids")
     for z in range(0, len(notesArray)-1, 1):
         line = notesArray[z]
 
@@ -301,7 +301,7 @@ def playMidi(song_path, bpm=0):
         for x in range(88):  # Go through all 88 keys
             if line[x] != 0:
                 tlc5947[x] = round((((line[x] - velMin) * (PWMMax - notesMinDict[x])) / (velMax - velMin)) + notesMinDict[x])
-                # print(round((((line[x] - velMin) * (PWMMax - notesMinDict[x])) / (velMax - velMin)) + notesMinDict[x]))
+                print(round((((line[x] - velMin) * (PWMMax - notesMinDict[x])) / (velMax - velMin)) + notesMinDict[x]))
             else:
                 tlc5947[x] = 0
                 continue
