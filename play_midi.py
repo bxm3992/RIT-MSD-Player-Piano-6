@@ -264,7 +264,7 @@ def playMidi(song_path, bpm=0):
     # 1-126 -> MIN PWM (2048) - 4096 | Assuming linear scale
     #           notePWM    = (((noteVel - velMin) * (PWMMax - PWMMin)) / (velMax - velMin)) + PWMMin
     # In usage: tlc5947[x] = (((line[x] - velMin) * (PWMMax - PWMMin)) / (velMax - velMin)) + PWMMin
-    velMin = 127
+    velMin = 126
     velMax = 127
     PWMMax = 4096
     # PWMMin is global and subject to vary depending on the note - often replaced by # in calibration file
