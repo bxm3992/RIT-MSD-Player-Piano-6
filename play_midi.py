@@ -266,7 +266,7 @@ def playMidi(song_path, bpm=0):
     # In usage: tlc5947[x] = (((line[x] - velMin) * (PWMMax - PWMMin)) / (velMax - velMin)) + PWMMin
     velMin = 1
     velMax = 127
-    PWMMax = 4094
+    PWMMax = 4095
     # PWMMin is global and subject to vary depending on the note - often replaced by # in calibration file
 
     # Read calibration file else generate a calibration file and try again
@@ -293,8 +293,7 @@ def playMidi(song_path, bpm=0):
         # send array to PWM IC
         for x in range(88):  # Go through all 88 keys
             if line[x] != 0:
-                #tlc5947[x] = round((((line[x] - velMin) * (PWMMax - notesMinDict[x])) / (velMax - velMin)) + notesMinDict[x])
-                tlc5947[x] = PWMMax
+                tlc5947[x] = round((((line[x] - velMin) * (PWMMax - notesMinDict[x])) / (velMax - velMin)) + notesMinDict[x])
                 print(round((((line[x] - velMin) * (PWMMax - notesMinDict[x])) / (velMax - velMin)) + notesMinDict[x]))
             else:
                 tlc5947[x] = 0
