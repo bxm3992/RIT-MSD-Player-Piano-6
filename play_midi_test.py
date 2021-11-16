@@ -308,8 +308,8 @@ def playMidi(song_path, bpm=0):
     input_thread=threading.Thread(target=get_input)
     testing_thread=threading.Thread(target=testing)
 
-    testing_thread.start
-    input_thread.start
+    testing_thread.start()
+    input_thread.start()
     
     print("Finished playing....")     
     reset_key()
