@@ -311,6 +311,9 @@ def playMidi(song_path, bpm=0):
     testing_thread.start()
     input_thread.start()
     
+    while(not(flag)):
+        continue
+
     print("Finished playing....")     
     reset_key()
 
@@ -351,10 +354,10 @@ def get_input():
         keystroke = input('input i to increment, c to close testing program \n')
         #freezes thread until keypress
         print('you pressed:', keystroke)
-        if keystroke == "c":
+        if keystroke == 'c':
             flag=True
             break
-        elif keystroke == "i":
+        elif keystroke == 'i':
             keyNum= keyNum+1
         else:
             continue
