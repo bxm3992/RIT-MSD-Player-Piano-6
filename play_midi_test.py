@@ -345,13 +345,15 @@ def get_input():
     global flag
     global keyNum
     while(1):    
-        keystroke = input('press a key \n')
+        keystroke = input('input i to increment, c to close testing program \n')
         #freezes thread until keypress
         print('you pressed:', keystroke)
-        if keystroke == "":
+        if keystroke == "c":
             flag=True
-        else:
+        elif keystroke == "i":
             keyNum= keyNum+1
+        else:
+            continue
 
 def main():
     """
