@@ -302,7 +302,7 @@ def playMidi(song_path, bpm=0):
     if temp_keyNum < 88 and temp_keyNum >= 0:
         keyNum = temp_keyNum
     else:
-        temp_keyNum = 0
+        keyNum = 0
     
     
 
@@ -341,13 +341,16 @@ def testing():
     for x in range(88):
         tlc5947[x] = 0
     tlc5947.write()
-    keyNum=0
     while(flag != True):
         # send array to PWM IC, set current key to 'actve'
         temp_PWMvalue = 4090
         tlc5947[keyNum]= temp_PWMvalue
         tlc5947.write()
         print("value written. key is currently: ",keyNum) #uncomment write when ready
+        #unwrite it 
+        time.sleep(.1)
+        tlc5947[keyNum]= 0
+        tlc5947.write()
         #removed sustain pedal functionality
         time.sleep(5)
         if flag ==True:
