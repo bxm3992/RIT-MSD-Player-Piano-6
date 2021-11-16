@@ -350,6 +350,7 @@ def get_input():
         print('you pressed:', keystroke)
         if keystroke == "c":
             flag=True
+            break
         elif keystroke == "i":
             keyNum= keyNum+1
         else:
