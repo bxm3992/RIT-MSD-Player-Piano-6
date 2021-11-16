@@ -319,6 +319,7 @@ def playMidi(song_path, bpm=0):
 
 def testing():
     global flag
+    global keyNum
 
     SCK = board.SCK
     MOSI = board.MOSI
@@ -340,7 +341,7 @@ def testing():
         #tlc5947.write()
         print("value written. key is currently: ",keyNum) #uncomment write when ready
         #removed sustain pedal functionality
-        time.sleep(10)
+        time.sleep(5)
         if flag ==True:
             print('The loop will now close.')
 
