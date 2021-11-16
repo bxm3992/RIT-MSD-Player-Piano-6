@@ -305,8 +305,8 @@ def playMidi(song_path, bpm=0):
 
     #call to the function that does the testing for threading
     print('starting threads...')
-    testing_thread=threading.Thread(target=testing())
     input_thread=threading.Thread(target=get_input())
+    testing_thread=threading.Thread(target=testing())
     
     print("Finished playing....")     
     reset_key()
@@ -334,7 +334,7 @@ def testing():
         #tlc5947.write()
         print("value written. key is currently: ",keyNum) #uncomment write when ready
         #removed sustain pedal functionality
-        time.sleep(15)
+        time.sleep(10)
         if flag ==True:
             print('The loop will now close.')
 
