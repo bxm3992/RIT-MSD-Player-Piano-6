@@ -298,6 +298,14 @@ def playMidi(song_path, bpm=0):
     #       go to next bit
     #   if input is exit, break out overall loop
 
+    temp_keyNum = input('input the starting keynum value (between 0 and 88) \n')
+    if temp_keyNum < 88 and temp_keyNum >= 0:
+        keyNum = temp_keyNum
+    else:
+        temp_keyNum = 0
+    
+    
+
     #set all keys to 0
     for x in range(88):  # Go through all 88 keys   
         tlc5947[x] = 0
