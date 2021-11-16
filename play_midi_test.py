@@ -304,8 +304,9 @@ def playMidi(song_path, bpm=0):
         continue
 
     #call to the function that does the testing for threading
-    testing_thread=threading.Thread(target=testing)
-    input_thread=threading.Thread(target=get_input)
+    print('starting threads...')
+    testing_thread=threading.Thread(target=testing())
+    input_thread=threading.Thread(target=get_input())
     
     print("Finished playing....")     
     reset_key()
