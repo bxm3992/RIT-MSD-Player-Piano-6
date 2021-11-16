@@ -44,8 +44,9 @@ import digitalio
 import adafruit_tlc5947
 import RPi.GPIO as GPIO
 
-#global flag for testing thread
+#global flag for testing thread & keystroke number
 flag=False
+keyNum = 0
 
 # Key Offset refers to the note difference between MIDI Start(C0) and Piano Start(A0)
 KEY_OFFSET = 9
@@ -163,6 +164,8 @@ def playMidi(song_path, bpm=0):
     :param bpm: OVERWRITE tempo, 0 otherwise to set to tempo found in metadata
     :return:
     """
+    global keyNum
+
     if not os.path.exists(song_path):
         sys.exit("Song Provided does not exist")  # Redundant Check - song wouldn't be selectable if it doesn't exist
     mid = mido.MidiFile(song_path)
@@ -302,39 +305,52 @@ def playMidi(song_path, bpm=0):
 
     #call to the function that does the testing for threading
     testing_thread=threading.Thread(target=testing)
-    input_thread=threading.Thread(target=get_input) 
-    testing()
+    input_thread=threading.Thread(target=get_input)
     
     print("Finished playing....")     
     reset_key()
 
 def testing():
     global flag
+
+    SCK = board.SCK
+    MOSI = board.MOSI
+    LATCH = digitalio.DigitalInOut(board.D5)
+
+     # Initialize SPI bus.
+    spi = busio.SPI(clock=SCK, MOSI=MOSI)
+    
     tlc5947 = adafruit_tlc5947.TLC5947(spi, LATCH, auto_write=False,
                                        num_drivers=4)
     for x in range(88):
         tlc5947[x] = 0
     tlc5947.write()
-
-    while(flag != True)):
-        currentkey=0
+    keyNum=0
+    while(flag != True):
         # send array to PWM IC, set current key to 'actve'
         temp_PWMvalue = 4090
-        tlc5947[currentkey]= temp_PWMvalue
+        tlc5947[keyNum]= temp_PWMvalue
         #tlc5947.write()
-        print("value written. key is currently: ",currentkey)
+        print("value written. key is currently: ",keyNum) #uncomment write when ready
         #removed sustain pedal functionality
         time.sleep(15)
         if flag ==True:
             print('The loop will now close.')
 
-
+#wait for constant input
+#if input is enter, break test
+#if input anything else, increment the key
 def get_input():
-    global flag    
-    keystroke = input('press a key \n')
-    #freezes thread until keypress
-    print('you pressed:', keystroke)
-    flag=True
+    global flag
+    global keyNum
+    while(1):    
+        keystroke = input('press a key \n')
+        #freezes thread until keypress
+        print('you pressed:', keystroke)
+        if keystroke == "":
+            flag=True
+        else:
+            keyNum= keyNum+1
 
 def main():
     """
