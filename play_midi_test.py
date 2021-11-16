@@ -338,7 +338,7 @@ def testing():
         # send array to PWM IC, set current key to 'actve'
         temp_PWMvalue = 4090
         tlc5947[keyNum]= temp_PWMvalue
-        #tlc5947.write()
+        tlc5947.write()
         print("value written. key is currently: ",keyNum) #uncomment write when ready
         #removed sustain pedal functionality
         time.sleep(5)
@@ -359,7 +359,11 @@ def get_input():
             flag=True
             break
         elif keystroke == 'i':
-            keyNum= keyNum+1
+            #check if over 88 keys
+            if (keyNum >= 88):
+                keyNum = 0
+            elif (keyNum < 88):    
+                keyNum= keyNum+1
         else:
             continue
 
