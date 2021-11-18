@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+TODO: Insert framing for Record functionality
+TODO: Insert framing for Calibration functionality
+TODO: Insert framing for Play functionality
+TODO: Determine method for piano roll functionality (chrome-music-lab?)
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Player Piano</title>
@@ -11,20 +17,21 @@
 <script>
     let musicLibrary = '';
     let currentLibrary = '';
+    let musicLibraryIndex = [];
 </script>
 <main>
     <div class="page active" id="menu">
         <div class="row">
             <div class="leftright">
-                    <button class ="card nav-link" id ="libraryButton" data-target="library">
-                        <div class="text-center">LIBRARY</div>
-                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 1600.000000 1600.000000"
-                             preserveAspectRatio="xMidYMin meet">
+                <button class ="card nav-link" id ="libraryButton" data-target="library">
+                    <div class="text-center">LIBRARY</div>
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 1600.000000 1600.000000"
+                         preserveAspectRatio="xMidYMin meet">
 
-                            <g transform="translate(0.000000,1600.000000) scale(0.100000,-0.100000)"
-                               fill="#a2a436" >
-                                <path class="line1" stroke="#a2a436", stroke-width ="8" d="M3444 15360 c-64 -9 -146 -53 -186 -99 -17 -19 -43 -60 -57 -91 l-26
+                        <g transform="translate(0.000000,1600.000000) scale(0.100000,-0.100000)"
+                           fill="#a2a436" >
+                            <path class="line1" stroke="#a2a436", stroke-width ="8" d="M3444 15360 c-64 -9 -146 -53 -186 -99 -17 -19 -43 -60 -57 -91 l-26
                             -55 -3 -5587 -2 -5588 320 0 320 0 0 5395 0 5395 5080 0 5080 0 -3 -6112 -2
                             -6113 -23 -99 c-120 -519 -520 -902 -1036 -991 -315 -54 -675 28 -935 213
                             -243 173 -427 439 -502 727 -31 117 -32 128 -38 415 -7 284 -8 297 -31 345
@@ -36,7 +43,7 @@
                             17 -5468 18 -2984 1 -5448 -2 -5476 -6z m7346 -12697 c2 -72 25 -272 41 -353
                             58 -290 211 -604 408 -838 l61 -72 -4124 0 c-4571 0 -4191 -6 -4406 66 -479
                             160 -830 610 -857 1097 l-6 107 4442 0 c2442 0 4441 -3 4441 -7z"/>
-                                <path class="line2" stroke="#a2a436", stroke-width ="8" d="M11445 12818 c-54 -10 -2805 -578 -3523 -727 -238 -50 -452 -99 -475
+                            <path class="line2" stroke="#a2a436", stroke-width ="8" d="M11445 12818 c-54 -10 -2805 -578 -3523 -727 -238 -50 -452 -99 -475
                             -109 -51 -24 -100 -73 -124 -127 -17 -38 -18 -150 -23 -2285 -6 -2513 2 -2282
                             -79 -2352 -82 -70 -204 -94 -551 -107 -253 -10 -363 -28 -531 -87 -192 -67
                             -343 -159 -474 -288 -132 -131 -206 -256 -246 -416 -19 -73 -21 -103 -16 -220
@@ -48,20 +55,20 @@
                             0 -497 281 -822 788 -914 122 -22 393 -29 533 -15 402 42 716 175 947 403 93
                             92 152 173 201 280 71 154 66 -93 66 2968 0 2630 -1 2778 -18 2832 -39 128
                             -145 190 -282 166z"/>
-                            </g>
-                        </svg>
-                    </button>
+                        </g>
+                    </svg>
+                </button>
             </div>
-                <div class="leftright">
-                    <button class="card nav-link" id="recordButton" data-target="record">
-                        <div class="text-center">RECORD</div>
-                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-                             width="80%" height="80%" viewBox="0 0 920.000000 1060.000000"
-                             preserveAspectRatio="xMidYMid meet">
+            <div class="leftright">
+                <button class="card nav-link" id="recordButton" data-target="record">
+                    <div class="text-center">RECORD</div>
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                         width="80%" height="80%" viewBox="0 0 920.000000 1060.000000"
+                         preserveAspectRatio="xMidYMid meet">
 
-                            <g transform="translate(0.000000,1060.000000) scale(0.100000,-0.100000)"
-                               fill="#941b25" stroke="none">
-                                <path d="M4335 10173 c-16 -2 -75 -15 -130 -29 -448 -112 -841 -428 -1050
+                        <g transform="translate(0.000000,1060.000000) scale(0.100000,-0.100000)"
+                           fill="#941b25" stroke="none">
+                            <path d="M4335 10173 c-16 -2 -75 -15 -130 -29 -448 -112 -841 -428 -1050
                                 -844 -96 -192 -146 -349 -165 -525 -9 -89 -30 -478 -30 -577 l0 -38 410 0 410
                                 0 -2 -207 -3 -208 -409 -3 -409 -2 7 -188 c4 -103 8 -188 9 -189 1 0 183 -4
                                 405 -8 l402 -8 0 -207 0 -207 -402 -8 c-222 -4 -404 -8 -405 -8 -1 -1 -5 -86
@@ -74,7 +81,7 @@
                                 207 118 0 c65 0 248 3 407 7 l288 6 -7 199 c-16 498 -65 717 -225 1002 -109
                                 196 -305 407 -492 533 -169 112 -319 179 -529 235 -112 30 -121 31 -365 34
                                 -137 1 -263 0 -280 -3z"/>
-                                <path d="M1643 6095 c-121 -34 -214 -109 -265 -213 l-33 -67 2 -265 c2 -348
+                            <path d="M1643 6095 c-121 -34 -214 -109 -265 -213 l-33 -67 2 -265 c2 -348
                                 19 -665 44 -818 73 -442 306 -967 606 -1364 283 -374 625 -673 1030 -899 293
                                 -164 564 -264 948 -349 105 -23 196 -47 203 -52 9 -8 12 -102 10 -432 l-3
                                 -421 -1129 -7 c-1123 -7 -1397 -15 -1493 -43 -64 -19 -141 -98 -183 -187 -27
@@ -89,10 +96,10 @@
                                 -591 -65 -316 0 -383 8 -617 69 -545 143 -1020 463 -1358 916 -190 255 -345
                                 587 -419 899 -42 176 -55 302 -66 640 -12 366 -20 441 -55 510 -34 67 -115
                                 144 -191 181 -77 38 -170 47 -251 24z"/>
-                            </g>
-                        </svg>
-                    </button>
-                </div>
+                        </g>
+                    </svg>
+                </button>
+            </div>
             <div class="bottom">
                 <button class ="cardS nav-link" id = calibrationButton data-target="calibration">
                     <div id="calText">CALIBRATION</div>
@@ -150,7 +157,34 @@
                 </button>
             </div>
         </div>
-        <button class="helpButton">?</button>
+        <button class="helpButton" id="helpBtn">?</button>
+        <div id="helpModal" class="Modal is-hidden is-visuallyHidden">
+            <!-- Help Modal content -->
+            <div class="Modal-content">
+                <button class="Close" id="closeHelpModal">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="gray"><path d="m437.019531 74.980469c-48.351562-48.351563-112.640625-74.980469-181.019531-74.980469s-132.667969 26.628906-181.019531 74.980469c-48.351563 48.351562-74.980469 112.640625-74.980469 181.019531 0 68.382812 26.628906 132.667969 74.980469 181.019531 48.351562 48.351563 112.640625 74.980469 181.019531 74.980469s132.667969-26.628906 181.019531-74.980469c48.351563-48.351562 74.980469-112.636719 74.980469-181.019531 0-68.378906-26.628906-132.667969-74.980469-181.019531zm-70.292969 256.386719c9.761719 9.765624 9.761719 25.59375 0 35.355468-4.882812 4.882813-11.28125 7.324219-17.679687 7.324219s-12.796875-2.441406-17.679687-7.324219l-75.367188-75.367187-75.367188 75.371093c-4.882812 4.878907-11.28125 7.320313-17.679687 7.320313s-12.796875-2.441406-17.679687-7.320313c-9.761719-9.765624-9.761719-25.59375 0-35.355468l75.371093-75.371094-75.371093-75.367188c-9.761719-9.765624-9.761719-25.59375 0-35.355468 9.765624-9.765625 25.59375-9.765625 35.355468 0l75.371094 75.367187 75.367188-75.367187c9.765624-9.761719 25.59375-9.765625 35.355468 0 9.765625 9.761718 9.765625 25.589844 0 35.355468l-75.367187 75.367188zm0 0"/></svg>
+                </button>
+                <div id="popupHelpHead"></div>
+                <div class ="blurIn" id="HelpInstruction" style="font-size:115%; position: absolute;color: white;margin-left: 1em; display: none; z-index: 9955">
+                    <h1 style="font-size:175%;"> <br>Welcome to the Player Piano! </h1>
+                    <h2 style="font-size:105%;">  Navigation: </h2>
+                    <div style="margin-left: 1em;color: white;">
+                        <!-- TODO: Update Help text with correct & final functionality-->
+                        Library: Takes you to the catalog of available MIDI music and choose which one to
+                        play! You can also choose to upload a MIDI song.<br><br>
+                        Record: Takes you to the play screen where you can
+                        play music and record to a MIDI file! <br><br>
+                        Calibration: Have the player piano automatically correct note volume and dynamics
+                        <div style="margin-left: 1em;margin-right:1em;color: white;word-wrap: break-word;">
+                            You can select the minimum volume in which the piano plays - in case it's too quiet or loud!
+                        </div>
+                        <br> (?) Button: Brings you right back here!<br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Help Modal content -->
+
     </div>
     <div class="page" id="library">
         <div id="myModal" class="Modal is-hidden is-visuallyHidden">
@@ -247,7 +281,7 @@
                     </g>
                     </svg>
                 </button>
-                <button class="startButton hideable" id="libraryStart">START</button>
+                <button class="startButton hideable nav-link" id="libraryStart" data-target="play">START</button>
             </div>
             <div id="libraryList">
                 <div class="listRow" id="head">
@@ -268,10 +302,149 @@
         </div>
     </div>
     <div class="page" id="play">
-        play
+        <div class="MainContainer" id="playDivider">
+            <div class="controlsSection">
+                <div class="controlCase">
+                    <!-- Hand and Tempo Selection -->
+                    <div class="upDownCase">
+                        <div class="controlButton ButtonUnPress" id="btnLeftHand"><img
+                                src="./images/l_hand.svg"
+                                class="centerImage"
+                                alt="left hand"
+                                height=100%
+                                width=100% /></div>
+                        <div class="upDownTextCase">
+                            <div class="controlsText"> Left Hand or Right Hand </div>
+                        </div>
+                        <div class="controlButton ButtonUnPress" id="btnRightHand"><img
+                                src="./images/r_hand.svg"
+                                alt="right hand"
+                                class="centerImage"
+                                height=100%
+                                width=100% /></div>
+                    </div>
+                    <div class="upDownCase">
+                        <div class="controlButton ButtonUnPress" id="btnTempoDown"><img
+                                src="./images/down.svg"
+                                alt="DOWN"
+                                class="centerImage"
+                                height=100%
+                                width=100% /></div>
+                        <div class="upDownTextCase">
+                            <div class="controlsText">Tempo:</div>
+                            <div class="controlsText"><var id="userTempo">120</var></div>
+                        </div>
+                        <div class="controlButton ButtonUnPress" id="btnTempoUp"><img
+                                src="./images/up.svg"
+                                alt="UP"
+                                class="centerImage"
+                                height=100%
+                                width=100% /></div>
+                    </div>
+                </div>
+                <!-- Title, Back, Play, Pause Controls -->
+                <div class="controlCase">
+                    <div class="upDownCase">
+                        <div class="TitleText"><var id="titleName">TITLE GOES HERE</var></div>
+                    </div>
+                    <button class="backPlayPauseButton nav-link" id="btnBack" data-target="library">
+                        <img
+                                src="./images/back.svg"
+                                alt="Back"
+                                class="centerImage"
+                                height=100%
+                                width=100% />
+                    </button>
+                    <button class="backPlayPauseButton" id="btnPlay">
+                        <img
+                                src="./images/play.svg"
+                                alt="Play"
+                                class="centerImage"
+                                height=100%
+                                width=100% />
+                    </button>
+                    <button class="backPlayPauseButton is-hidden is-visuallyHidden" id="btnPause">
+                        <img
+                                src="./images/pause.svg"
+                                alt="Pause"
+                                class="centerImage"
+                                height=100%
+                                width=100% />
+                    </button>
+                    <button class="backPlayPauseButton" id="btnRecord">
+                        <img
+                                src="./images/record-button.svg"
+                                alt="Record"
+                                class="centerImage"
+                                height=80%
+                                width=80% />
+                    </button>
+                </div>
+                <!-- Title, Back, Play, Pause, Record Controls -->
+                <div class="controlCase">
+                    <div class="centeredCase">
+                        <div class="controlsTitleText">Count-In</div>
+                        <div class="controlButton ButtonUnPress" id="countTimeCase"><var id="countTime">8</var></div>
+                    </div>
+                    <div class="centeredCase">
+                        <div class="controlButton ButtonUnPress" id=btnVolDown><img
+                                src="./images/down.svg"
+                                alt="DOWN"
+                                class="centerImage"
+                                height=100%
+                                width=100% /></div>
+                        <div class="controlsTitleText">Volume@<var id="volNum">5</var></div>
+                        <div class="controlButton ButtonUnPress" id=btnVolUp><img
+                                src="./images/up.svg"
+                                alt="UP"
+                                class="centerImage"
+                                height=100%
+                                width=100% /></div>
+                    </div>
+                </div>
+            </div>
+            <div class="playSection">
+                <div id="noteSection"></div>
+            </div>
+
+        </div>
     </div>
     <div class="page" id="record">
-        record
+        <div class="MainContainer" id="recordDivider">
+            <div class="controlsSection">
+                <!-- Title, Back, Play, Pause Controls -->
+                <div class="controlCase">
+                    <div class="upDownCase">
+                        <div class="controlsTitleText">Record Your Playing!</div>
+                    </div>
+                    <button class="backPlayPauseButton nav-link" id="btnRecordBack" data-target="menu">
+                        <img
+                                src="./images/back.svg"
+                                alt="Back"
+                                class="centerImage"
+                                height="87"
+                                width="100" />
+                    </button>
+                    <button class="backPlayPauseButton" id="btnRecordRecord">
+                        <img
+                                src="./images/record-button.svg"
+                                alt="Record"
+                                class="centerImage"
+                                height="87"
+                                width="75" />
+                    </button>
+                </div>
+                <!-- Count-in & Controls -->
+                <div class="controlCase">
+                    <div class="centeredCase">
+                        <div class="controlsTitleText">Count-In</div>
+                        <div class="controlButton ButtonUnPress">3</div>
+                    </div>
+                </div>
+            </div>
+            <div class="noteSection">
+                <div id="noteRecordSection"></div>
+            </div>
     </div>
     <div class="page" id="calibration">
         calibration
@@ -309,7 +482,56 @@
 <script src="/jsmodules/socket.io.js"></script>
 <script src="/jsmodules/jquery.js"></script>
 <script>
+    // JS Script for Main Page on Selection of Help Logo
+    // Get the modal
+    var modalHelp = document.getElementById('helpModal');
 
+    // Get the main container and the body
+    var helpBody = document.getElementsByTagName('body');
+    //var container = document.querySelector('.MainContainer');
+    //console.log(container);
+    // Get the open button
+    var btnOpenHelp = document.getElementById("helpBtn");
+
+    // Get the close button
+    var btnCloseHelp = document.getElementById("closeHelpModal");
+
+    // Open the modal
+    btnOpenHelp.onclick = function() {
+        modalHelp.className = "Modal";
+        setTimeout(function() {
+            //console.log(container.className);
+            //container.classList.add("is-blurred");
+            modalHelp.className = "Modal";
+            $('#HelpInstruction').slideToggle("slow").toggleClass("blurOut blurIn");
+        }, 100);
+        //container.parentElement.className = "ModalOpen";
+        console.log(modalHelp);
+    };
+
+    // Close the modal
+    btnCloseHelp.onclick = function() {
+        modalHelp.className = "Modal is-hidden is-visuallyHidden";
+        $('#HelpInstruction').slideToggle("slow").toggleClass("blurOut blurIn");
+
+        helpBody.className = "";
+        //container.className = "MainContainer";
+        //$('#HelpInstruction').visible()
+        //container.parentElement.className = "";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.addEventListener("click", function(event){//onclick = function(event) {
+        if (event.target === modalHelp) {
+            modalHelp.className = "Modal is-hidden";
+            $('#HelpInstruction').slideToggle("slow").toggleClass("blurOut blurIn");
+            helpBody.className = "";
+            //container.classList.remove("is-blurred");
+            //container.parentElement.className = "";
+        }
+    });
+</script>
+<script>
     let libraryLoaded = false;
     let orderTracker = 'title';
     let orderDirection = 'normal';
@@ -327,7 +549,7 @@
 
 
     function selectSong(ev) {
-        console.log("here");
+        //console.log("here");
         if (document.querySelector('.selected')!= null){
             if (document.querySelector('.selected').classList.contains("odd")) {
                 document.querySelector('.selected').style.backgroundColor = "#5f5f5f";
@@ -345,6 +567,17 @@
         ev.currentTarget.style.marginBottom = "5px";
         ev.currentTarget.classList.add("selected");
         document.querySelector('.hideable').style.display = "block";
+
+        // Convert the TitleName
+        if (ev.target.classList.contains('listColumn')){ // If the parent div was not selected...
+            document.getElementById('titleName').textContent =
+                $(ev.target).parent().children().first('div')[0].textContent;
+        }
+        else{ // If the parent div was selected...
+            document.getElementById('titleName').textContent =
+                $(ev.target).children().first('div')[0].textContent;
+        }
+
     }
 
     function changeOrder(ev){
@@ -356,7 +589,6 @@
         switch(clickID){
             case "title":
                 if (orderDirection === 'normal'){
-                    console.log("here");
                     currentLibrary.sort(function (a,b) {
                         return compareStringsReverse(a.title,b.title)
                     });
@@ -527,7 +759,7 @@
         ev.preventDefault();
         let newList = ev.currentTarget.getAttribute('id');
         document.querySelector('.shown').style.backgroundColor = "#252525";
-        document.querySelector('.shown').style.textShadow = "0px 0px 0px #000000";;
+        document.querySelector('.shown').style.textShadow = "0px 0px 0px #000000";
         document.querySelector('.shown').classList.remove('shown');
         document.getElementById(newList).classList.add('shown');
         document.querySelector('.shown').style.backgroundColor = "#6f6f6f";
@@ -595,9 +827,190 @@
         document.getElementById('my_file').click();
     };
 
+    document.getElementById("libraryStart").onclick = function() {
+        // Get the original tempo from song
+        const songLoaded = false;
+        if (songLoaded === false){
+            let filepath;
+            // Send the title to grab the original tempo, and begin loading the song with original tempo
+            console.log(musicLibrary);
+            for (var musicIdx in musicLibrary){  // Grab the filepath for the music
+                if(String(document.getElementById('titleName').textContent) === String(musicLibrary[musicIdx].title)){
+                    filepath = musicLibrary[musicIdx].pathToMidi;
+                    console.log(filepath)
+                }
+            }
+            socket.emit('request songpreproc', filepath,
+                document.getElementById('userTempo').textContent);
+            // Receive the base tempo of the song and set accordingly
+            socket.on('send songpreproc', function (tempo) {
+                document.getElementById('userTempo').textContent = tempo;
+            });
+        }
+
+    };
     $('input[type=file]').change(function (e) {
         $('#customfileupload').html($(this).val());
     });
 </script>
+
+<script>
+    // Play page functionality
+    var socket = io();
+    document.querySelector('.shown').style.backgroundColor = "#6f6f6f";
+    document.querySelector('.shown').style.textShadow = "0px 5px 10px #000000";
+    document.getElementById('title').style.backgroundColor = "#5f5f5f";
+    document.querySelectorAll('.filterButton').forEach((button)=>{
+        button.addEventListener('click', changeList);
+    });
+    document.getElementById('btnPlay').addEventListener("click",playSong);
+    document.getElementById('btnPause').addEventListener("click",resetSong);
+    document.getElementById('btnBack').addEventListener("click",resetSong);
+    document.getElementById('btnTempoUp').addEventListener("click",tempoChangeUp);
+    document.getElementById('btnTempoDown').addEventListener("click",tempoChangeDown);
+    document.getElementById('btnVolUp').addEventListener("click",volChangeUp);
+    document.getElementById('btnVolDown').addEventListener("click",volChangeDown);
+    document.querySelectorAll('.headButton').forEach((button)=>{
+        button.addEventListener('click', changeOrder);
+    });
+
+    var btnPlay = document.getElementById("btnPlay");
+    var btnPause = document.getElementById("btnPause");
+    var btnBack = document.getElementById("btnBack");
+    var btnCount = document.getElementById("countTimeCase");
+    var btnTempoUp = document.getElementById("btnTempoUp");
+    var btnTempoDown = document.getElementById("btnTempoDown");
+    var btnLeftHand = document.getElementById("btnLeftHand");
+    var btnRightHand = document.getElementById("btnRightHand");
+    var btnVolUp = document.getElementById("btnVolUp");
+    var btnVolDown = document.getElementById("btnVolDown");
+
+    // On-click functionality
+    btnPlay.onclick = function() {
+        btnPlay.className = "backPlayPauseButton ButtonPress";
+        setTimeout(function() {
+            btnPlay.className = "backPlayPauseButton is-hidden is-visuallyHidden";
+            btnPause.className = "backPlayPauseButton";
+        }, 100);
+
+    };
+
+    btnPause.onclick = function() {
+        btnPause.className = "backPlayPauseButton ButtonPress";
+        setTimeout(function() {
+            btnPause.className = "backPlayPauseButton is-hidden is-visuallyHidden";
+            btnPlay.className = "backPlayPauseButton";
+        }, 100);
+    };
+
+    btnTempoUp.onclick = function() {
+        btnTempoUp.className = "controlButton ButtonPress";
+        setTimeout(function() {
+            btnTempoUp.className = "controlButton ButtonUnPress";
+        }, 100);
+    };
+
+    btnTempoDown.onclick = function() {
+        btnTempoDown.className = "controlButton ButtonPress";
+        setTimeout(function() {
+            btnTempoDown.className = "controlButton ButtonUnPress";
+        }, 100);
+    };
+
+    btnVolUp.onclick = function() {
+        btnVolUp.className = "controlButton ButtonPress";
+        setTimeout(function() {
+            btnVolUp.className = "controlButton ButtonUnPress";
+        }, 100);
+    };
+
+    btnVolDown.onclick = function() {
+        btnVolDown.className = "controlButton ButtonPress";
+        setTimeout(function() {
+            btnVolDown.className = "controlButton ButtonUnPress";
+        }, 100);
+    };
+
+    btnLeftHand.onclick = function() {
+        if(btnLeftHand.className === "controlButton ButtonUnPress"){
+            btnLeftHand.className = "controlButton ButtonPress";
+            btnRightHand.className = "controlButton ButtonUnPress";
+        }
+        else{
+            btnLeftHand.className = "controlButton ButtonUnPress";
+            btnRightHand.className = "controlButton ButtonUnPress";
+        }
+    };
+
+    btnRightHand.onclick = function() {
+        if(btnRightHand.className === "controlButton ButtonUnPress"){
+            btnRightHand.className = "controlButton ButtonPress";
+            btnLeftHand.className = "controlButton ButtonUnPress";
+        }
+        else{
+            btnLeftHand.className = "controlButton ButtonUnPress";
+            btnRightHand.className = "controlButton ButtonUnPress";
+        }
+
+    };
+
+    async function playSong(ev){
+        // Start Countdown
+        var countdown = parseFloat(document.getElementById('countTime').textContent);
+        var i;
+        for (i = countdown; i >= 0; i--) {
+            //btnCount.claseName = "controlButton";
+            // Remember: await counts in ms
+            await new Promise(r => setTimeout(r, ((60.0/document.getElementById('userTempo').textContent)*1000)));
+            console.log(60.0/document.getElementById('userTempo').textContent);
+            document.getElementById('countTime').textContent = i;
+        }
+        document.getElementById('countTime').textContent = 'G';
+        await new Promise(r => setTimeout(r, ((60.0/document.getElementById('userTempo').textContent)*1000)));
+        document.getElementById('countTime').textContent = countdown;
+
+
+        // Send socket command to play song
+        const songLoaded = false;
+        if (songLoaded === false){
+            socket.emit('request play');
+            socket.on('send play', function (data) {
+                console.log(data)
+            });
+        }
+    }
+    function resetSong(){
+        const songLoaded = false;
+        if (songLoaded === false){
+            socket.emit('request reset');
+            socket.on('send reset', function (data) {
+                console.log(data)
+            });
+        }
+    }
+
+    function tempoChangeUp(){
+        document.getElementById('userTempo').textContent=
+            String(parseInt(document.getElementById('userTempo').textContent)+1);
+    }
+    function tempoChangeDown(){
+        document.getElementById('userTempo').textContent=
+            String(parseInt(document.getElementById('userTempo').textContent)-1);
+    }
+
+    function volChangeUp(){
+        if (parseInt(document.getElementById('volNum').textContent)<11){
+            document.getElementById('volNum').textContent=
+                String(parseInt(document.getElementById('volNum').textContent)+1);
+        }
+    }
+    function volChangeDown() {
+        if (parseInt(document.getElementById('volNum').textContent)>0){
+            document.getElementById('volNum').textContent =
+                String(parseInt(document.getElementById('volNum').textContent) - 1);
+        }
+    }
+</script>
+
 </body>
 </html>

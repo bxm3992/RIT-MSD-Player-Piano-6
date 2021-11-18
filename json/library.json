@@ -1,26 +1,26 @@
 [
     {
       "id": 1,
-      "title": "name1",
+      "title": "Band_of_Brothers_-_Variations_with_an_Interlude",
       "composer": "dfdwfwd",
       "duration": "04:23",
       "handSplit": true,
       "type":"music",
-      "pathToMidi": "/file/midi/file1"
+      "pathToMidi": "/midifiles/Band_of_Brothers_-_Variations_with_an_Interlude.mid"
     },
     {
       "id": 2,
-      "title": "name2",
-      "composer": "wedfedvf",
-      "duration": "07:43",
+      "title": "sample_record",
+      "composer": "sample_composer",
+      "duration": "99:99",
       "handSplit": false,
       "type":"record",
       "pathToMidi": "/file/midi/file2"
     },
     {
       "id": 3,
-      "title": "name3",
-      "composer": "waefrtwsfwd",
+      "title": "Over_There",
+      "composer": "Cohen",
       "duration": "03:23",
       "handSplit": true,
       "type":"record",
@@ -28,12 +28,12 @@
     },
     {
       "id": 4,
-      "title": "name4",
-      "composer": "wewqewfwd",
-      "duration": "01:43",
+      "title": "Wet Hands",
+      "composer": "C418",
+      "duration": "01:30",
       "handSplit": false,
-      "type":"record",
-      "pathToMidi": "/file/midi/file4"
+      "type":"music",
+      "pathToMidi": "./midifiles/Wet_Hands_Minecraft.mid"
     },
     {
       "id": 5,
