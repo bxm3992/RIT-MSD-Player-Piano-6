@@ -143,13 +143,13 @@ def actuateSustainPedal(dir):
     if dir == 1:
         HBRIDGE_A.value = True
         HBRIDGE_B.value = False
-        time.sleep(1)  # Time for sustain pedal to actuate - UP
+        time.sleep(5)  # Time for sustain pedal to actuate - UP
         HBRIDGE_A.value = False
         HBRIDGE_B.value = False
     else:
         HBRIDGE_A.value = False
         HBRIDGE_B.value = True
-        time.sleep(2)  # Time for sustain pedal to actuate - DOWN
+        time.sleep(7)  # Time for sustain pedal to actuate - DOWN
         HBRIDGE_A.value = False
         HBRIDGE_B.value = False
 
