@@ -5,10 +5,10 @@ time.sleep(20)
 
 class _CDC :
     def __init__(self):
-        self.dev = "/dev/serial/usb-Teensyduino_USB_Serial_5214380-if00"
+        self.dev = "/dev/serial/by-id/usb-Teensyduino_USB_Serial_5214330-if00"
         self.query = ""
     def read(self,_passarg):
-        with open("/dev/serial/by-id/usb-Teensyduino_USB_Serial_5214380-if00","r") as readBuff:
+        with open("/dev/serial/by-id/usb-Teensyduino_USB_Serial_5214330-if00","r") as readBuff:
             while True :
                 ans = readBuff.readline()
                 if ans:
@@ -16,7 +16,7 @@ class _CDC :
                 #time sleep for save cpu clocks
                 time.sleep(0.001)
     def write(self,_passarg):
-        with open("/dev/serial/by-id/usb-Teensyduino_USB_Serial_5214380-if00","a") as writeBuff:
+        with open("/dev/serial/by-id/usb-Teensyduino_USB_Serial_5214330-if00","a") as writeBuff:
             while True :
                 if self.query != "" :
                     writeBuff.write(self.query+"\n")
