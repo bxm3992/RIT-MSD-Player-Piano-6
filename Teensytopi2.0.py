@@ -1,4 +1,4 @@
-import thread
+import threading
 import time
 time.sleep(20)
 
@@ -24,8 +24,8 @@ class _CDC :
                 time.sleep(0.001)
 
 CDC = _CDC()
-thread.start_new_thread(CDC.read,(None,))
-thread.start_new_thread(CDC.write,(None,))
+threading.start_new_thread(CDC.read,(None,))
+threading.start_new_thread(CDC.write,(None,))
 
 for i in range(30):
     q = "SEND-TEST%02d"%i
