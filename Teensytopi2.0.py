@@ -11,7 +11,7 @@ class _CDC :
             while True :
                 ans = readBuff.readline()
                 if ans:
-                    print ans[:-2]#Ignore "\r\n" parts ! 
+                    print(ans[:-2]) #Ignore "\r\n" parts ! 
                 #time sleep for save cpu clocks
                 time.sleep(0.001)
     def write(self,_passarg):
