@@ -5,7 +5,7 @@
 
 import serial
 import time
-time.sleep(20)
+time.sleep(10)
 
 if __name__ == '__main__':
     ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
