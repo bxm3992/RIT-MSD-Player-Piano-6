@@ -2,9 +2,10 @@ import serial
 import time
 time.sleep(20)
 
-port="/dev/serial/usb-Teensyduino_USB_Serial_5214380-if00"
-ser=serial.Serial(port,115200)
-while True:
-    print("Waiting for messages from arduino..")
-    read_ser=ser.readline()
-    print(read_ser)
+if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser.reset_input_buffer()
+    while True:
+        if ser.in_waiting > 0:
+            line = ser.readline().decode('utf-8').rstrip()
+            print(line)
