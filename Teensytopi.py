@@ -21,7 +21,7 @@ if __name__ == '__main__':
                     while arduino.inWaiting()==0: pass
                     if  arduino.inWaiting()>0: 
                         answer=arduino.read()
-                        if(answer != "\0x00"):
+                        if(answer != "0x00"):
                             print(answer)
                         arduino.flushInput() #remove data after reading
             except KeyboardInterrupt:
