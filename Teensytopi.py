@@ -3,6 +3,7 @@
 # lsusb to check device name
 #dmesg | grep "tty" to find port name
 
+from asyncio.windows_events import NULL
 import serial,time
 
 
@@ -21,7 +22,8 @@ if __name__ == '__main__':
                     while arduino.inWaiting()==0: pass
                     if  arduino.inWaiting()>0: 
                         answer=arduino.read()
-                        print(answer)
+                        if(answer != NULL):
+                            print(answer)
                         arduino.flushInput() #remove data after reading
             except KeyboardInterrupt:
                 print("KeyboardInterrupt has been caught.")
