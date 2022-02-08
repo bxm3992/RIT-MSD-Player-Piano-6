@@ -3,7 +3,6 @@
 # lsusb to check device name
 #dmesg | grep "tty" to find port name
 
-from asyncio.windows_events import NULL
 import serial,time
 
 
