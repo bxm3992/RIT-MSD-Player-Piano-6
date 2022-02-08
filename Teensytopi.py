@@ -22,6 +22,6 @@ if __name__ == '__main__':
                     if  arduino.inWaiting()>0: 
                         answer=arduino.read()
                         print(answer)
-                        #arduino.flushInput() #remove data after reading
+                        arduino.flushInput() #remove data after reading
             except KeyboardInterrupt:
                 print("KeyboardInterrupt has been caught.")
