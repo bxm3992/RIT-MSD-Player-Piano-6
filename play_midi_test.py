@@ -298,7 +298,7 @@ def playMidi(song_path, bpm=0):
     #       go to next bit
     #   if input is exit, break out overall loop
 
-    temp_keyNum = int(input('input the starting keynum value (between 0 and 88) \n'))
+    temp_keyNum = int(input('input the starting keynum value (between 0 and 87) \n'))
     if temp_keyNum < 88 and temp_keyNum >= 0:
         keyNum = temp_keyNum
     else:
@@ -348,7 +348,7 @@ def testing():
         tlc5947.write()
         print("value written. key is currently: ",keyNum) #uncomment write when ready
         #unwrite it 
-        time.sleep(.1)
+        time.sleep(2)
         tlc5947[keyNum]= 0
         tlc5947.write()
         #removed sustain pedal functionality
@@ -357,7 +357,7 @@ def testing():
             print('The loop will now close.')
 
 #wait for constant input
-#if input is enter, break test
+#if input is c, close program
 #if input anything else, increment the key
 def get_input():
     global flag
