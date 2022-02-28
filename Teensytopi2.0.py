@@ -23,7 +23,8 @@ if __name__ == '__main__':
     data_length=1 #one byte is 8 bits
     while True:
         if ser.in_waiting > 0:
-            data = ser.read(size=data_length)
+            data = ser.read_until(size=data_length)
+            print(data)
             for i in range(data_length):
                 print(data[i]) 
             #ser.flush()
