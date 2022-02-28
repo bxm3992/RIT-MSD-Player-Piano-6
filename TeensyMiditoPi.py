@@ -17,16 +17,21 @@ if __name__ == '__main__':
     
     time.sleep(.5)
     try:
-        ser = serial.Serial("/dev/ttyACM0", 9600,timeout=0, parity=serial.PARITY_NONE, 
+        ser = serial.Serial(port="/dev/ttyACM0", baud=9600,timeout=0, parity=serial.PARITY_NONE, 
                         stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     except:
         sys.exit("Error connecting device")        
     #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser.open()
     time.sleep(.5)
     ser.reset_input_buffer()
     time.sleep(.01)
     while True:
+        print("checking buffers")
         if ser.in_waiting > 0:
             line = ser.readline().decode('utf-8').rstrip()
             #line2= ser.read()
             print(line)
+        else:
+            if ser.out_waiting > 0:
+                print("shit in output buffer")
