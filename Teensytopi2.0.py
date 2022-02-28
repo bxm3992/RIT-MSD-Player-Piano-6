@@ -1,35 +1,27 @@
-import threading
-import _thread as thread
-import time
-time.sleep(20)
-teensyPort = "/dev/ttyACM0"
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# lsusb to check device name
+#dmesg | grep "tty" to find port name
 
-class _CDC :
-    def __init__(self):
-        self.dev = teensyPort
-        self.query = ""
-    def read(self,_passarg):
-        with open(teensyPort,"r") as readBuff:
-            while True :
-                ans = readBuff.readline()
-                if ans:
-                    print(ans[:-2]) #Ignore "\r\n" parts ! 
-                #time sleep for save cpu clocks
-                time.sleep(0.001)
-    def write(self,_passarg):
-        with open(teensyPort,"a") as writeBuff:
-            while True :
-                if self.query != "" :
-                    writeBuff.write(self.query+"\n")
-                    self.query = ""
-                #time sleep for save cpu clocks
-                time.sleep(0.001)
+#print('Running. Press CTRL-C to exit.')
+    #with serial.Serial("/dev/ttyACM0", 9600, timeout=1) as arduino:
+    #if arduino.isOpen():
+            #print("{} connected!".format(arduino.port))
 
-CDC = _CDC()
-thread.start_new_thread(CDC.read,(None,))
-thread.start_new_thread(CDC.write,(None,))
+import serial
+import sys
+import mido, time
+import serial.tools.list_ports as port_list
 
-for i in range(30):
-    q = "SEND-TEST%02d"%i
-    CDC.query = q+((64-len(q))*"\x00")
-    time.sleep(0.1)
+if __name__ == '__main__':
+    
+    ports = list(port_list.comports())
+    for p in ports: print (p)
+        
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser.reset_input_buffer()
+    while True:
+        if ser.in_waiting > 0:
+            line = ser.read(4)
+            print("OUTPUT: " + line)
+            ser.flush()
