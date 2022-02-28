@@ -3,25 +3,27 @@
 # lsusb to check device name
 #dmesg | grep "tty" to find port name
 
-import serial
-import sys
-import mido, time
-
-
-if __name__ == '__main__':
-    
-    #print('Running. Press CTRL-C to exit.')
+#print('Running. Press CTRL-C to exit.')
     #with serial.Serial("/dev/ttyACM0", 9600, timeout=1) as arduino:
     #if arduino.isOpen():
             #print("{} connected!".format(arduino.port))
+
+import serial
+import sys
+import mido, time
+import serial.tools.list_ports as port_list
+
+if __name__ == '__main__':
     
+    ports = list(port_list.comports())
+    for p in ports: print (p)
+        
     time.sleep(2)
     #try:
     ser = serial.Serial(port="/dev/ttyACM0", baudrate=9600,timeout=0, parity=serial.PARITY_NONE, 
                         stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     #except:
         #sys.exit("Error connecting device")        
-    #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     time.sleep(2)
     ser.reset_input_buffer()
     time.sleep(.01)
@@ -29,8 +31,4 @@ if __name__ == '__main__':
     while True:
         if ser.in_waiting > 0:
             line = ser.readline().decode('utf-8').rstrip()
-            #line2= ser.read()
             print(line)
-        else:
-            if ser.out_waiting > 0:
-                print("shit in output buffer")
