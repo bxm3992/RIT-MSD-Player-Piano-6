@@ -15,18 +15,18 @@ if __name__ == '__main__':
     #if arduino.isOpen():
             #print("{} connected!".format(arduino.port))
     
-    time.sleep(.5)
+    time.sleep(2)
     #try:
     ser = serial.Serial(port="/dev/ttyACM0", baudrate=9600,timeout=0, parity=serial.PARITY_NONE, 
                         stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     #except:
         #sys.exit("Error connecting device")        
     #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-    time.sleep(.5)
+    time.sleep(2)
     ser.reset_input_buffer()
     time.sleep(.01)
+    print("Starting program.")
     while True:
-        print("checking buffers")
         if ser.in_waiting > 0:
             line = ser.readline().decode('utf-8').rstrip()
             #line2= ser.read()
