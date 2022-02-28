@@ -14,13 +14,9 @@ if __name__ == '__main__':
     #if arduino.isOpen():
             #print("{} connected!".format(arduino.port))
             
-        ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-        time.sleep(0.1) #wait for serial to open
-        ser.flush()
-        # Infinite loop
-        while (1):
-            # If there is data available
-                if(ser.in_waiting > 0):
-                    line = ser.readline().decode('utf-8').rstrip()
-                    # Print the data received from the Arduino
-                    print(line)
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser.reset_input_buffer()
+    while True:
+        if ser.in_waiting > 0:
+            line = ser.readline().decode('utf-8').rstrip()
+            print(line)
