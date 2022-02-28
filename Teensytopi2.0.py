@@ -20,7 +20,7 @@ if __name__ == '__main__':
         
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     ser.reset_input_buffer()
-    data_length=1 #one byte is 8 bits
+    data_length=4 #one byte is 8 bits
     while True:
         if ser.in_waiting > 0:
             data = ser.read_until(size=data_length)
