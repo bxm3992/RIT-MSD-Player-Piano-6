@@ -22,7 +22,6 @@ if __name__ == '__main__':
     #except:
         #sys.exit("Error connecting device")        
     #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-    ser.open()
     time.sleep(.5)
     ser.reset_input_buffer()
     time.sleep(.01)
