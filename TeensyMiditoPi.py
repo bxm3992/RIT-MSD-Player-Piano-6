@@ -14,11 +14,11 @@ if __name__ == '__main__':
     #with serial.Serial("/dev/ttyACM0", 9600, timeout=1) as arduino:
     #if arduino.isOpen():
             #print("{} connected!".format(arduino.port))
-    try:
-        ser = serial.Serial("/dev/ttyUSB0", 9600,timeout=0, parity=serial.PARITY_NONE, 
+    #try:
+    ser = serial.Serial("/dev/ttyUSB0", 9600,timeout=0, parity=serial.PARITY_NONE, 
                         stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
-    except:
-        sys.exit("Error connecting device")        
+    #except:
+        #sys.exit("Error connecting device")        
     #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     ser.reset_input_buffer()
     while True:
