@@ -17,7 +17,7 @@ if __name__ == '__main__':
     
     time.sleep(.5)
     #try:
-    ser = serial.Serial(port="/dev/ttyACM0", baud=9600,timeout=0, parity=serial.PARITY_NONE, 
+    ser = serial.Serial(port="/dev/ttyACM0", baudrate=9600,timeout=0, parity=serial.PARITY_NONE, 
                         stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     #except:
         #sys.exit("Error connecting device")        
