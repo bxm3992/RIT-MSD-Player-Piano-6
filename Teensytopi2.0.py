@@ -25,6 +25,6 @@ if __name__ == '__main__':
         if ser.in_waiting > 0:
             data = ser.read_until(size=data_length)
             print(data)
-            for i in range(data_length):
-                print(data[i]) 
-            #ser.flush()
+            #for i in range(data_length):
+            #    print(data[i]) 
+            ser.flush()
