@@ -1,14 +1,16 @@
 """
 Takes a MIDI file and converts it into a text file, which will then insert the velocity measurements into the MIDI file.
 """
-import play_midi_conv as pm
+#import play_midi_conv as pm
 import sys
 import os
 import time
+import threading
+import serial as s
+from mido import Message, MidiFile, MidiTrack
 
-# TODO: Need to edit specific note within midi file, with specific velocity value
-# TODO: Need to determine proper formula to convert the velocity data into MIDI velocity data
-
+########### BELOW IS USED FOR MANUAL MIDI PROCESSING USING MF2TXP.EXE PROGRAM ############
+##########################################################################################
 def editMidi(note):
     midiFile = input("Insert midi name (don't include file extension): ")
     absPath = os.path.abspath("midifiles/mf2tXP.exe")
@@ -91,10 +93,46 @@ def waitforkeyPress(key):
     vel = elapsedTime * recordedVel
     # Put it into MIDI velocity parameter
     return vel
+##########################################################################################
 
 
+###################### BELOW IS USED FOR SERIAL MIDI PROCESSING ##########################
+##########################################################################################
+
+#TODO: Make MIDI file from tracks that is sent over serial
+# Try to edit velocity values from tracks being sent
+
+def createMIDI():
+    flag = False
+    mid = MidiFile()
+    track = MidiTrack()
+    mid.tracks.append(track)
+
+    ser = serial.Serial('', ) # Need to specify port and baud rate
+    userInput = input("Press q to stop recording: ")
+    while(not(flag)):
+        if userInput == "q":
+            flag = True
+            enterName = input("Enter filename for MIDI file: ")
+            mid.save(enterName + ".mid")
+        bitsToRead = ser.inWaiting()
+        arrayBits = ser.read(bitsToRead)
+        # Not sure if bytearray was used to send array over serial
+        # arrayData = bytearray(bitsToRead)
+        # for elem in arrayData:
+            # Skip the first element since it's the delta time
+            # continue
+            # track.append(Message('note_on', note=int(elem), 0, arrayData[0])) # Specify velocity
+        track.append(Message('note_on', note=64, velocity=127, time=32))
+        
+
+##########################################################################################
+
+
+# Main function to process/run made functions
 def main():
-    editMidi()
+    #editMidi()
+    createMIDI()
 
 
 if __name__ == "__main__":
