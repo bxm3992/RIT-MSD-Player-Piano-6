@@ -19,14 +19,20 @@ if __name__ == '__main__':
     for p in ports: print (p)
     
     try:
-        inport = mido.open_input('/dev/ttyACM0')
+        ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+        ser.reset_input_buffer()
+        data_length=4 #one byte is 8 bits, use arduino to determine how many bytes being sent
         while True:
-            for temp_msg in inport.iter_pending():
-                print(temp_msg)
+            if ser.in_waiting > 0:
+                command_note_velocity_time = ser.read_until(size=data_length)
+                print("command: " + str(command_note_velocity_time[0]))
+                print("note: " + str(command_note_velocity_time[1]))
+                print("velocity: " + str(command_note_velocity_time[2]))
+                print("time: " + str(command_note_velocity_time[3]))
+                print("\n")
+                ser.flush()
     except KeyboardInterrupt:
-            print("Interrupted. Closing ports....")
-            inport.close()
-            print("Closed ports. Closing program.\n")
+            print("Closing program.\n")
     
     
         
