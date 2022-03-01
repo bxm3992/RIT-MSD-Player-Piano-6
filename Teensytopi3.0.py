@@ -21,7 +21,8 @@ if __name__ == '__main__':
     print(mido.get_output_names())
     
     try:
-        inport = mido.open_input('/dev/ttyACM0')
+        #inport = mido.open_input('/dev/ttyACM0')
+        inport = mido.open_input('Nudu Through:Midi Through Port-0 14:0')
         while True:
             for temp_msg in inport.iter_pending():
                 print(temp_msg)
