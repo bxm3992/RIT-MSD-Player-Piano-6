@@ -28,4 +28,5 @@ if __name__ == '__main__':
             #print(data)
             for i in range(data_length):
                 print(str(temp_data[i])+",") 
+            print("\n")
             ser.flush()
