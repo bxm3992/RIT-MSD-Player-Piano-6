@@ -24,6 +24,7 @@ if __name__ == '__main__':
     while True:
         if ser.in_waiting > 0:
             data = ser.read_until(size=data_length)
+            data.decode('utf-8').rstrip()
             print(data)
             #for i in range(data_length):
             #    print(data[i]) 
