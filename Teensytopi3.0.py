@@ -18,6 +18,8 @@ if __name__ == '__main__':
     ports = list(port_list.comports())
     for p in ports: print (p)
     
+    print(mido.get_output_names())
+    
     try:
         inport = mido.open_input('/dev/ttyACM0')
         while True:
