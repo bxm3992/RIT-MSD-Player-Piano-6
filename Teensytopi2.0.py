@@ -20,12 +20,12 @@ if __name__ == '__main__':
         
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     ser.reset_input_buffer()
-    data_length=4 #one byte is 8 bits
+    data_length=4 #one byte is 8 bits, use arduino to determine how many bytes being sent
     while True:
         if ser.in_waiting > 0:
             data = ser.read_until(size=data_length)
-            data.decode('utf-8').rstrip()
-            print(data)
-            #for i in range(data_length):
-            #    print(data[i]) 
+            temp_data = [data[0],data[1],data[2],data[3]]
+            #print(data)
+            for i in range(data_length):
+                print(temp_data[i]+",") 
             ser.flush()
