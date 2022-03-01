@@ -27,5 +27,5 @@ if __name__ == '__main__':
             temp_data = [data[0],data[1],data[2],data[3]]
             #print(data)
             for i in range(data_length):
-                print(temp_data[i]+",") 
+                print(str(temp_data[i])+",") 
             ser.flush()
