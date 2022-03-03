@@ -10,7 +10,7 @@
 
 import serial
 import sys
-import mido, time
+import mido, time, threading
 import serial.tools.list_ports as port_list
 
 if __name__ == '__main__':
