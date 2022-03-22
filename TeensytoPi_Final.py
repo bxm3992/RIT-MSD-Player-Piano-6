@@ -28,15 +28,18 @@ if __name__ == '__main__':
 
 ''' 
 This is the function that creates the midi file
-Original Author: Austin Nguyen
+Originated: 22363
+    Original Author: Austin Nguyen
+    Author: Blaise Meilunas 
 '''    
 def createMIDI():
     flag = False
     mid = MidiFile()
     track = MidiTrack()
     mid.tracks.append(track)
-
-    ser = serial.Serial('', ) # Need to specify port and baud rate
+    #https://www.programiz.com/python-programming/datetime/current-datetime
+    #when creating use date and time
+    #need to add means to change the name
     userInput = input("Press q to stop recording: ")
     while(not(flag)):
         if userInput == "q":
