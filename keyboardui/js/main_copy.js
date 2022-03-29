@@ -275,6 +275,7 @@ function pressPianoKeyDown(pianoKey) {
 		pianoKeys88[key - 1].down();
 	};
 
+	console.log(pianoKey.element);
 	addClass('pressed',pianoKey.element);
 	adjustFinalGain(keys.length);
 }
@@ -292,6 +293,7 @@ function pressPianoKeyUp(pianoKey) {
 var lastPianoKey = null;
 simplePianoDiv.addEventListener('mousedown', function(e) {
 	var pianoKey = getClickedPianoKey(e.target);
+	console.log(pianoKey);
 	if (!pianoKey) return ;
 
 	mouseDown[e.which] = true;
@@ -333,28 +335,73 @@ function pressUpAllPianoKeys() {
 const keyArray = [0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0
 , 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0
 , 1, 1, 1];
-var index = 0
-for (var i = 0; i < keyArray.length; i++)
-{
-	if (keyArray[i] == 1) {
-		keysDown[index] = true;
 
-		var keys = Object.keys(keysDown);
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
-			pianoKeys88[key - 1].down();
-		};
-	
-		addClass('pressed', pianoKey.element);
-		adjustFinalGain(keys.length);
+var i = 0;
 
-		// index.up();
-		// removeClass('pressed',index.element);
-		// adjustFinalGain(Object.keys(keysDown).length);
-		// delete keysDown[index];
-	}
-	index++;
+$(document).ready(function () {
+	$("#btn").click(async function () {
+		if (i == keyArray.length - 1) {
+			i = 0;
+		}
+		if (keyArray[i] == 1) {
+			var keyNumber = i+1;
+			if (keysDown[keyNumber]) return ;
+			keysDown[keyNumber] = true;
+			// var testKey = pianoKeys88[0].element;
+			// console.log(testKey);
+			var keys = Object.keys(keysDown);
+			for (var j = 0; j < keys.length; j++) {
+				var key = keys[j];
+				pianoKeys88[key - 1].down();
+			};
+
+			modifyKey = pianoKeys88[i].element;
+			addClass('pressed', modifyKey); 
+			adjustFinalGain(keys.length);
+			
+			await sleep(1000);
+
+			if (!keysDown[keyNumber]) return ;
+			pianoKeys88[i].up();
+			removeClass('pressed',modifyKey);
+			adjustFinalGain(Object.keys(keysDown).length);
+			delete keysDown[i];
+
+			i++;
+		} else {
+			i++;
+			
+		}
+	});
+});
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve,ms));
 }
+
+
+// var index = 0
+// for (var i = 0; i < keyArray.length; i++)
+// {
+// 	if (keyArray[i] == 1) {
+// 		keysDown[index] = true;
+
+// 		var keys = Object.keys(keysDown);
+// 		for (var i = 0; i < keys.length; i++) {
+// 			var key = keys[i];
+// 			pianoKeys88[key - 1].down();
+// 		};
+	
+// 		addClass('pressed', pianoKey.element);
+// 		adjustFinalGain(keys.length);
+
+// 		// index.up();
+// 		// removeClass('pressed',index.element);
+// 		// adjustFinalGain(Object.keys(keysDown).length);
+// 		// delete keysDown[index];
+// 	}
+// 	index++;
+// }
 
 // Add threading with web workers 
 // if (window.Worker) {
