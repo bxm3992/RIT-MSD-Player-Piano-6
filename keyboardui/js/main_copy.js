@@ -192,22 +192,22 @@ var CHAR_KEY_TO_CODES = {
 
 var pianoKeys = {};
 
-var keys = Object.keys(KEYBOARD_PIANO_MAP);
+// var keys = Object.keys(KEYBOARD_PIANO_MAP);
 
-for (var i = 0; i < keys.length; i++) {
-	var charKey = keys[i];
-	var key = CHAR_KEY_TO_CODES[charKey]
+// for (var i = 0; i < keys.length; i++) {
+// 	var charKey = keys[i];
+// 	var key = CHAR_KEY_TO_CODES[charKey]
 
-	var keyNumber = KEYBOARD_PIANO_MAP[charKey];
-	var pianoKey = pianoKeys88[keyNumber - 1];
-	pianoKey.keyCode = key;
-	pianoKeys[key] = pianoKey;
+// 	var keyNumber = KEYBOARD_PIANO_MAP[charKey];
+// 	var pianoKey = pianoKeys88[keyNumber - 1];
+// 	pianoKey.keyCode = key;
+// 	pianoKeys[key] = pianoKey;
 
-	var pianoKeyDiv = document.querySelector(".piano-key[data-key-number='" + keyNumber + "']");
-	var textDiv = pianoKeyDiv.getElementsByClassName('mapped-keys')[0];
-	textDiv.innerText = (charKey + " " + textDiv.innerText).replace(/ $/,'');
+// 	var pianoKeyDiv = document.querySelector(".piano-key[data-key-number='" + keyNumber + "']");
+// 	var textDiv = pianoKeyDiv.getElementsByClassName('mapped-keys')[0];
+// 	textDiv.innerText = (charKey + " " + textDiv.innerText).replace(/ $/,'');
 
-};
+// };
 
 var keysDown = {};
 var mouseDown = {};
