@@ -321,7 +321,8 @@ def playMidi(song_path, bpm=0):
     
     while(not(flag)):
         continue
-
+    print("One moment.")
+    time.sleep(5)
     print("Finished playing....")     
     reset_key()
 
@@ -347,10 +348,12 @@ def testing():
         tlc5947[keyNum]= temp_PWMvalue
         tlc5947.write()
         print("value written. key is currently: ",keyNum) #uncomment write when ready
+        print("the solenoid is activated.")
         #unwrite it 
         time.sleep(2)
         tlc5947[keyNum]= 0
         tlc5947.write()
+        print("the solenoid is now off.")
         #removed sustain pedal functionality
         time.sleep(5)
         if flag ==True:
@@ -360,6 +363,7 @@ def testing():
 #if input is c, close program
 #if input anything else, increment the key
 def get_input():
+    key_limit = 24
     global flag
     global keyNum
     while(1):    
@@ -368,12 +372,14 @@ def get_input():
         print('you pressed:', keystroke)
         if keystroke == 'c':
             flag=True
+            print("Preparing to close.")
+            time.sleep(5)
             break
         elif keystroke == 'i':
-            #check if over 88 keys
-            if (keyNum >= 88):
+            #check if over 88 keys (now keylimit)
+            if (keyNum >= key_limit):
                 keyNum = 0
-            elif (keyNum < 88):    
+            elif (keyNum < key_limit):    
                 keyNum= keyNum+1
         else:
             continue
