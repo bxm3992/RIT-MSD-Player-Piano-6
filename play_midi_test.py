@@ -363,19 +363,63 @@ def get_input():
     global flag
     global keyNum
     while(1):    
-        keystroke = input('input i to increment, c to close testing program \n')
+        keystroke = input('press one of these keys: qwertyuiopasdfghjklzx to activate piano key, or c to close testing program \n')
         #freezes thread until keypress
         print('you pressed:', keystroke)
         if keystroke == 'c':
             flag=True
             break
+        elif keystroke == 'q':
+            keyNum = 0
+        elif keystroke == 'w':
+            keyNum = 1
+        elif keystroke == 'e':
+            keyNum = 2
+        elif keystroke == 'r':
+            keyNum = 3
+        elif keystroke == 't':
+            keyNum = 4
+        elif keystroke == 'y':
+            keyNum = 5
+        elif keystroke == 'u':
+            keyNum = 6
         elif keystroke == 'i':
-            #check if over 88 keys
-            if (keyNum >= 88):
-                keyNum = 0
-            elif (keyNum < 88):    
-                keyNum= keyNum+1
+            keyNum = 7
+        elif keystroke == 'o':
+            keyNum = 8
+        elif keystroke == 'p':
+            keyNum = 9
+        elif keystroke == 'a':
+            keyNum = 10  
+        elif keystroke == 's':
+            keyNum = 11 
+        elif keystroke == 'd':
+            keyNum = 12
+        elif keystroke == 'f':
+            keyNum = 13  
+        elif keystroke == 'g':
+            keyNum = 14  
+        elif keystroke == 'h':
+            keyNum = 15  
+        elif keystroke == 'j':
+            keyNum = 16  
+        elif keystroke == 'k':
+            keyNum = 17  
+        elif keystroke == 'l':
+            keyNum = 18  
+        elif keystroke == 'z':
+            keyNum = 19  
+        elif keystroke == 'x':
+            keyNum = 20     
+
+        # elif keystroke == 'i':
+        #     #check if over 88 keys
+        #     if (keyNum >= 88):
+        #         keyNum = 0
+        #     elif (keyNum < 88):    
+        #         keyNum= keyNum+1
         else:
+            print('Please only press one of these keyboard keys: qwertyuiopasdfghjklzx')
             continue
 
 def main():
