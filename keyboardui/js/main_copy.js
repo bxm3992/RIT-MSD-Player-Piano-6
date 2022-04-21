@@ -332,84 +332,218 @@ function pressUpAllPianoKeys() {
 	};		
 }
 
-const keyArray = [0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0
-, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0
-, 1, 1, 1];
+// const keyArray = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0
+// , 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0
+// , 1, 1, 1];
 
-var i = 0;
-
-$(document).ready(function () {
-	$("#btn").click(async function () {
-		if (i == keyArray.length - 1) {
-			i = 0;
-		}
-		if (keyArray[i] == 1) {
-			var keyNumber = i+1;
-			if (keysDown[keyNumber]) return ;
-			keysDown[keyNumber] = true;
-			// var testKey = pianoKeys88[0].element;
-			// console.log(testKey);
-			var keys = Object.keys(keysDown);
-			for (var j = 0; j < keys.length; j++) {
-				var key = keys[j];
-				pianoKeys88[key - 1].down();
-			};
-
-			modifyKey = pianoKeys88[i].element;
-			addClass('pressed', modifyKey); 
-			adjustFinalGain(keys.length);
-			
-			await sleep(1000);
-
-			if (!keysDown[keyNumber]) return ;
-			pianoKeys88[i].up();
-			removeClass('pressed',modifyKey);
-			adjustFinalGain(Object.keys(keysDown).length);
-			delete keysDown[i];
-
-			i++;
-		} else {
-			i++;
-			
-		}
-	});
-});
+function createArray() {
+	const keyArray = [];
+	for (var i = 0; i <= 4; i++) {
+		//initialize array here
+		keyArray[i] = 1;
+	}
+	return keyArray;
+}
 
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve,ms));
 }
 
+// const keyArray = createArray();
+// var p = new Parallel(keyArray, { evalPath: 'js/eval.js' });
+// p.require('js/main_copy.js').spawn(playpianoKeys).then(console.log(p.data));
 
-// var index = 0
-// for (var i = 0; i < keyArray.length; i++)
-// {
-// 	if (keyArray[i] == 1) {
-// 		keysDown[index] = true;
+function updateUI() {
+	var keys = Object.keys(keysDown);
+	for (var j = 0; j < keys.length; j++) {
+		var key = keys[j];
+		pianoKeys88[key - 1].down();
+	};
 
-// 		var keys = Object.keys(keysDown);
-// 		for (var i = 0; i < keys.length; i++) {
-// 			var key = keys[i];
-// 			pianoKeys88[key - 1].down();
-// 		};
-	
-// 		addClass('pressed', pianoKey.element);
-// 		adjustFinalGain(keys.length);
+	modifyKey = pianoKeys88[keyArray.indexOf(n)].element;
+	// console.log(modifyKey);
+	addClass('pressed', modifyKey); 
+	adjustFinalGain(keys.length);
+}
 
-// 		// index.up();
-// 		// removeClass('pressed',index.element);
-// 		// adjustFinalGain(Object.keys(keysDown).length);
-// 		// delete keysDown[index];
+// function playpianoKeys(n) {
+// 	// const keyArray = createArray();
+// 	if (keyArray[n] == 1) {
+		// var keyNumber = keyArray.indexOf(n)+1;
+		// if (keysDown[keyNumber]) return ;
+		// keysDown[keyNumber] = true;
+		// var testKey = pianoKeys88[0].element;
+		// console.log(testKey);
+		// var keys = Object.keys(keysDown);
+		// for (var j = 0; j < keys.length; j++) {
+		// 	var key = keys[j];
+		// 	pianoKeys88[key - 1].down();
+		// };
+
+		// modifyKey = pianoKeys88[keyArray.indexOf(n)].element;
+		// console.log(modifyKey);
+		// addClass('pressed', modifyKey); 
+		// adjustFinalGain(keys.length);
+
+		// await sleep(1000);
+
+		// if (!keysDown[keyNumber]) return ;
+		// pianoKeys88[keyArray.indexOf(n)].up();
+		// removeClass('pressed',modifyKey);
+		// adjustFinalGain(Object.keys(keysDown).length);
+		// // delete keysDown[keyNumber];
+		// pressPianoKeyUp(keyNumber);
+// 	} 
+// }
+
+window.setInterval(function(){
+	// call your function here
+	playpianoKeys();
+}, 2000);  // Change Interval here to test. For eg: 5000 for 5 sec
+
+function playKey(keyNumber) {
+	if (keysDown[keyNumber]) return ;
+	keysDown[keyNumber] = true;
+	var keys = Object.keys(keysDown);
+	for (var j = 0; j < keys.length; j++) {
+		var key = keys[j];
+		pianoKeys88[key - 1].down();
+	};
+	modifyKey = pianoKeys88[keyNumber-1].element;
+	addClass('pressed', modifyKey); 
+	adjustFinalGain(keys.length);
+}
+
+function releaseKey(keyNumber) {
+	if (!keysDown[keyNumber]) return ;
+	pianoKeys88[keyNumber-1].up();
+	removeClass('pressed',modifyKey);
+	adjustFinalGain(Object.keys(keysDown).length);
+	pressPianoKeyUp(keyNumber);
+}
+
+async function playpianoKeys() {
+	var keyNumber = 23;
+	playKey(keyNumber);
+	await sleep(1000);
+	releaseKey(keyNumber);
+
+	keyNumber = 24;
+	playKey(keyNumber);
+	await sleep(1000);
+	releaseKey(keyNumber);
+
+	keyNumber = 25;
+	playKey(keyNumber);
+	await sleep(3000);
+	releaseKey(keyNumber);
+
+}
+
+// function playpianoKeys() {
+// 	keyArray = createArray();
+// 	while(true) {
+// 		if (window.Worker) {
+// 			worker = new Worker("js/press_key_worker.js");
+// 			pianoobj = JSON.parse(JSON.stringify(pianoKeys88));
+// 			worker.postMessage([keyArray,keysDown,pianoobj]);
+// 			worker.addEventListener("message", async event => {
+// 				modifyKey = event.data;
+// 				addClass('pressed', modifyKey); 
+// 				adjustFinalGain(keys.length);
+
+// 				await sleep(1000);
+
+// 				keyNumber = i+1;
+// 				if (!keysDown[keyNumber]) return ;
+// 				pianoKeys88[i].up();
+// 				removeClass('pressed',modifyKey);
+// 				adjustFinalGain(Object.keys(keysDown).length);
+// 				delete keysDown[i];
+
+// 				// worker2 = new Worker("unpress_key_worker");
+// 				// worker2.postMessage([keysDown,pianoKeys88]);
+// 				// worker2.addEventListener("message", event => {
+// 				// 	removeClass('pressed',modifyKey);
+// 				// 	adjustFinalGain(Object.keys(keysDown).length);
+// 				// 	delete keysDown[i];
+// 				// });
+// 			});
+// 		}
 // 	}
-// 	index++;
 // }
 
-// Add threading with web workers 
-// if (window.Worker) {
-// 	const myWorker = new Worker("worker.js");
-// } else {
-// 	console.log('Your browser doesn\'t support web workers.');
+// async function playpianoKeys() {
+// 	keyArray = createArray();
+// 	for (var len = 0; len < keyArray.length; len++) {
+// 		if (keyArray[len] == 1) {
+// 			var keyNumber = len+1;
+// 			if (keysDown[keyNumber]) return ;
+// 			keysDown[keyNumber] = true;
+// 			// var testKey = pianoKeys88[0].element;
+// 			// console.log(testKey);
+// 			var keys = Object.keys(keysDown);
+// 			for (var j = 0; j < keys.length; j++) {
+// 				var key = keys[j];
+// 				pianoKeys88[key - 1].down();
+// 			};
+
+// 			modifyKey = pianoKeys88[len].element;
+// 			addClass('pressed', modifyKey); 
+// 			adjustFinalGain(keys.length);
+			
+// 			await sleep(1000);
+
+// 			if (!keysDown[keyNumber]) return ;
+// 			pianoKeys88[len].up();
+// 			removeClass('pressed',modifyKey);
+// 			adjustFinalGain(Object.keys(keysDown).length);
+// 			// delete keysDown[keyNumber];
+// 			pressPianoKeyUp(keyNumber);
+// 		} else {
+// 			continue;
+// 		}
+// 	};
 // }
+
+// $(document).ready(function () {
+// 	$("#btn").click(async function () {
+// 		if (i == keyArray.length - 1) {
+// 			i = 0;
+// 		}
+// 		if (keyArray[i] == 1) {
+// 			var keyNumber = i+1;
+// 			if (keysDown[keyNumber]) return ;
+// 			keysDown[keyNumber] = true;
+// 			// var testKey = pianoKeys88[0].element;
+// 			// console.log(testKey);
+// 			var keys = Object.keys(keysDown);
+// 			for (var j = 0; j < keys.length; j++) {
+// 				var key = keys[j];
+// 				pianoKeys88[key - 1].down();
+// 			};
+
+// 			modifyKey = pianoKeys88[i].element;
+// 			addClass('pressed', modifyKey); 
+// 			adjustFinalGain(keys.length);
+			
+// 			await sleep(1000);
+
+// 			if (!keysDown[keyNumber]) return ;
+// 			pianoKeys88[i].up();
+// 			removeClass('pressed',modifyKey);
+// 			adjustFinalGain(Object.keys(keysDown).length);
+// 			delete keysDown[i];
+
+// 			i++;
+// 		} else {
+// 			i++;
+			
+// 		}
+// 	});
+// });
 
 window.addEventListener('blur', function (e) {
 	pressUpAllPianoKeys();
 });
+
