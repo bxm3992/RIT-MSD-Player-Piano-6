@@ -326,9 +326,15 @@ def playMidi(song_path, bpm=0):
     print("Finished playing....")     
     reset_key()
 
+################----------------------------##################
+#---------------############################------------------#
+################----------------------------##################
 def testing():
     global flag
     global keyNum
+
+    #this is the correct key array because the mapping is wrong for some reason, last 3 zeros are 86,46,51 indexes
+    correct_keys=[8,9,10,11,4,5,6,7,0,1,2,3,15,14,13,0,19,0,17,16,23,22,0,20]
 
     SCK = board.SCK
     MOSI = board.MOSI
@@ -345,7 +351,8 @@ def testing():
     while(flag != True):
         # send array to PWM IC, set current key to 'actve'
         temp_PWMvalue = 4090
-        tlc5947[keyNum]= temp_PWMvalue
+        true_key=correct_keys[keyNum]
+        tlc5947[true_key]= temp_PWMvalue
         tlc5947.write()
         print("value written. key is currently: ",keyNum) #uncomment write when ready
         print("the solenoid is activated.")
