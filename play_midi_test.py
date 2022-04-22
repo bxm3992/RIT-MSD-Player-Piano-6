@@ -334,7 +334,7 @@ def testing():
     global keyNum
 
     #this is the correct key array because the mapping is wrong for some reason, last 3 zeros are 86,46,51 indexes
-    correct_keys=[8,9,10,11,4,5,6,7,0,1,2,3,15,14,13,0,19,0,17,16,23,22,0,20]
+    correct_keys=[8,9,10,11,4,5,6,7,0,1,2,3,15,14,13,13,19,19,17,16,23,22,22,20]
 
     SCK = board.SCK
     MOSI = board.MOSI
