@@ -315,7 +315,7 @@ def playMidi(song_path, bpm=0):
     print('starting threads...')
     master_thread=threading.Thread(target=master_program)
     
-    new_testing_thread=threading.Thread(target=new_testing())
+    new_testing_thread=threading.Thread(target=new_testing)
     
     master_thread.start()
     new_testing_thread.start()
