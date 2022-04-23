@@ -403,7 +403,7 @@ def playSong():
                     string = 's2'
             elif string == 's2':
                 song2 = [9,7,5,9,7,5,5,5,5,5,7,7,7,7,9,7,5]
-                for elem in song1:
+                for elem in song2:
                     true_key=correct_keys[elem]
                     tlc5947[true_key]= temp_PWMvalue
                     tlc5947.write()
