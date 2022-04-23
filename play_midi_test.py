@@ -358,7 +358,7 @@ def testing():
         print("the solenoid is activated.")
         #unwrite it 
         time.sleep(2)
-        tlc5947[keyNum]= 0
+        tlc5947[true_key]= 0
         tlc5947.write()
         print("the solenoid is now off.")
         #removed sustain pedal functionality
