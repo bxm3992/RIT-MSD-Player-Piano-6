@@ -423,19 +423,20 @@ def new_testing():
             tlc5947.write()
         while(nflag):    
             play_key=input('input key to play from 0 to 23 \n')
-            #freezes thread until keypress
-            print('Playing key ', play_key)
-            # send array to PWM IC, set current key to 'actve'
-            temp_PWMvalue = 4090
-            int(play_key) #convert to num
-            true_key=correct_keys[play_key]
-            tlc5947[true_key]= temp_PWMvalue
-            tlc5947.write()
-            #unwrite it 
-            time.sleep(1)
-            tlc5947[true_key]= 0
-            tlc5947.write()
-            #the note was written, time to write another
+            if int(play_key) > 23 or int(play_key) < 0:
+                #freezes thread until keypress
+                print('Playing key ', play_key)
+                # send array to PWM IC, set current key to 'actve'
+                temp_PWMvalue = 4090
+                temp_play_key = int(play_key) #convert to num
+                true_key=correct_keys[temp_play_key]
+                tlc5947[true_key]= temp_PWMvalue
+                tlc5947.write()
+                #unwrite it 
+                time.sleep(1)
+                tlc5947[true_key]= 0
+                tlc5947.write()
+                #the note was written, time to write another
         
 def blaise_testing():
     while(1):
