@@ -315,7 +315,7 @@ def playMidi(song_path, bpm=0):
     print('starting threads...')
     master_thread=threading.Thread(target=master_program)
     
-    new_testing_thread=threading.Thread(target=playSong)
+    new_testing_thread=threading.Thread(target=new_testing())
     
     master_thread.start()
     new_testing_thread.start()
@@ -331,87 +331,87 @@ def playMidi(song_path, bpm=0):
 #---------------############################------------------#
 ################----------------------------##################
 
-# def new_testing():
-#     while(1):
-#         global nflag
-#         #this is the correct key array because the mapping is wrong for some reason, last 3 zeros are 86,46,51 indexes
-#         global correct_keys
-#         SCK = board.SCK
-#         MOSI = board.MOSI
-#         LATCH = digitalio.DigitalInOut(board.D5)
+def new_testing():
+    while(1):
+        global nflag
+        #this is the correct key array because the mapping is wrong for some reason, last 3 zeros are 86,46,51 indexes
+        global correct_keys
+        SCK = board.SCK
+        MOSI = board.MOSI
+        LATCH = digitalio.DigitalInOut(board.D5)
 
-#         # Initialize SPI bus.
-#         spi = busio.SPI(clock=SCK, MOSI=MOSI)
-#         tlc5947 = adafruit_tlc5947.TLC5947(spi, LATCH, auto_write=False,num_drivers=4)
-#         if nflag:
-#             for x in range(88):
-#                 tlc5947[x] = 0
-#             tlc5947.write()
-#         while(nflag):    
-#             play_key=input('input key to play from 0 to 23, c to close \n')
-#             if int(play_key) < 23 or int(play_key) > 0:
-#                 #freezes thread until keypress
-#                 print('Playing key ', play_key)
-#                 # send array to PWM IC, set current key to 'actve'
-#                 temp_PWMvalue = 4090
-#                 temp_play_key = int(play_key) #convert to num
-#                 true_key=correct_keys[temp_play_key]
-#                 tlc5947[true_key]= temp_PWMvalue
-#                 tlc5947.write()
-#                 #unwrite it 
-#                 time.sleep(1)
-#                 tlc5947[true_key]= 0
-#                 tlc5947.write()
-#                 #the note was written, time to write another
-#             elif play_key == 'c':
-#                 nflag = False
-#                 break
-    
-def playSong():
-    global string
-    global nflag
-    #this is the correct key array because the mapping is wrong for some reason, last 3 zeros are 86,46,51 indexes
-    global correct_keys
-    SCK = board.SCK
-    MOSI = board.MOSI
-    LATCH = digitalio.DigitalInOut(board.D5)
-
-    # Initialize SPI bus.
-    spi = busio.SPI(clock=SCK, MOSI=MOSI)
-    tlc5947 = adafruit_tlc5947.TLC5947(spi, LATCH, auto_write=False,num_drivers=4)
-    if nflag:
-        for x in range(88):
-            tlc5947[x] = 0
+        # Initialize SPI bus.
+        spi = busio.SPI(clock=SCK, MOSI=MOSI)
+        tlc5947 = adafruit_tlc5947.TLC5947(spi, LATCH, auto_write=False,num_drivers=4)
+        if nflag:
+            for x in range(88):
+                tlc5947[x] = 0
             tlc5947.write()
-    while(nflag):
-        press_key = input("Press any key to start: (c to stop)")
-        temp_PWMvalue = 4090
-        if press_key == 'c':
-            nflag = False
-            break
-        else:
-            if string == 's1':
-                song1 = [9,7,5,7,9,9,9,7,7,7,9,12,12,9,7,5,7,9,9,9,7,7,9,7,5]
-                for elem in song1:
-                    true_key=correct_keys[elem]
-                    tlc5947[true_key]= temp_PWMvalue
-                    tlc5947.write()
-                    #unwrite it 
-                    time.sleep(1)
-                    tlc5947[true_key]= 0
-                    tlc5947.write()
-                    string = 's2'
-            elif string == 's2':
-                song2 = [9,7,5,9,7,5,5,5,5,5,7,7,7,7,9,7,5]
-                for elem in song2:
-                    true_key=correct_keys[elem]
-                    tlc5947[true_key]= temp_PWMvalue
-                    tlc5947.write()
-                    #unwrite it 
-                    time.sleep(1)
-                    tlc5947[true_key]= 0
-                    tlc5947.write()
-                    string = 's1'
+        while(nflag):    
+            play_key=input('input key to play from 0 to 23, c to close \n')
+            if int(play_key) < 23 or int(play_key) > 0:
+                #freezes thread until keypress
+                print('Playing key ', play_key)
+                # send array to PWM IC, set current key to 'actve'
+                temp_PWMvalue = 4090
+                temp_play_key = int(play_key) #convert to num
+                true_key=correct_keys[temp_play_key]
+                tlc5947[true_key]= temp_PWMvalue
+                tlc5947.write()
+                #unwrite it 
+                time.sleep(1)
+                tlc5947[true_key]= 0
+                tlc5947.write()
+                #the note was written, time to write another
+            elif play_key == 'c':
+                nflag = False
+                break
+    
+# def playSong():
+#     global string
+#     global nflag
+#     #this is the correct key array because the mapping is wrong for some reason, last 3 zeros are 86,46,51 indexes
+#     global correct_keys
+#     SCK = board.SCK
+#     MOSI = board.MOSI
+#     LATCH = digitalio.DigitalInOut(board.D5)
+
+#     # Initialize SPI bus.
+#     spi = busio.SPI(clock=SCK, MOSI=MOSI)
+#     tlc5947 = adafruit_tlc5947.TLC5947(spi, LATCH, auto_write=False,num_drivers=4)
+#     if nflag:
+#         for x in range(88):
+#             tlc5947[x] = 0
+#             tlc5947.write()
+#     while(nflag):
+#         press_key = input("Press any key to start: (c to stop)")
+#         temp_PWMvalue = 4090
+#         if press_key == 'c':
+#             nflag = False
+#             break
+#         else:
+#             if string == 's1':
+#                 song1 = [9,7,5,7,9,9,9,7,7,7,9,12,12,9,7,5,7,9,9,9,7,7,9,7,5]
+#                 for elem in song1:
+#                     true_key=correct_keys[elem]
+#                     tlc5947[true_key]= temp_PWMvalue
+#                     tlc5947.write()
+#                     #unwrite it 
+#                     time.sleep(1)
+#                     tlc5947[true_key]= 0
+#                     tlc5947.write()
+#                     string = 's2'
+#             elif string == 's2':
+#                 song2 = [9,7,5,9,7,5,5,5,5,5,7,7,7,7,9,7,5]
+#                 for elem in song2:
+#                     true_key=correct_keys[elem]
+#                     tlc5947[true_key]= temp_PWMvalue
+#                     tlc5947.write()
+#                     #unwrite it 
+#                     time.sleep(1)
+#                     tlc5947[true_key]= 0
+#                     tlc5947.write()
+#                     string = 's1'
 
 
 def master_program():
