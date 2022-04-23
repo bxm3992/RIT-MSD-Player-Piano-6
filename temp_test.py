@@ -346,7 +346,7 @@ def new_testing():
                 tlc5947[x] = 0
             tlc5947.write()
         while(nflag):    
-            play_key=input('input key to play from 0 to 23 \n')
+            play_key=input('input key to play from 0 to 23, c to close \n')
             if int(play_key) < 23 or int(play_key) > 0:
                 #freezes thread until keypress
                 print('Playing key ', play_key)
@@ -361,6 +361,9 @@ def new_testing():
                 tlc5947[true_key]= 0
                 tlc5947.write()
                 #the note was written, time to write another
+            elif play_key == 'c':
+                nflag = False
+                break
     
 def master_program():
     global flag
